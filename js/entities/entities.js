@@ -12,7 +12,7 @@ game.PlayerEntity = me.Entity.extend({
                     return(new me.Rect(0, 0, 64, 64)).toPolygon();
                 }
         }]);
-        this.body.setVelocity(5, 0);
+        this.body.setVelocity(5, 20);
     },
     update: function (delta){
         if(me.input.isKeyPressed("right")){
