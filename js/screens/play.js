@@ -11,6 +11,7 @@ game.PlayScreen = me.ScreenObject.extend({
                 //adds the character to the game
                 me.game.world.addChild(player,5);
                 me.input.bindKey(me.input.KEY.RIGHT, "right");
+                me.input.bindKey(me.input.KEY.A, "attack");
 		// add our HUD to the game world
 		this.HUD = new game.HUD.Container();
 		me.game.world.addChild(this.HUD);
