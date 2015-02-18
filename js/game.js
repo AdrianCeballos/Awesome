@@ -41,6 +41,7 @@ var game = {
 	"loaded" : function () {
                 //gets an instance of the player object
 		me.pool.register("player", game.PlayerEntity, true);
+                me.pool.register("EnemyCreep", game.PlayerEntity, true);
                 me.pool.register("PlayerBase", game.PlayerBaseEntity);
                 me.pool.register("EnemyBase", game.EnemyBaseEntity);
                 me.state.set(me.state.MENU, new game.TitleScreen());

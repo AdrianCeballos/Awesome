@@ -77,6 +77,10 @@ game.PlayerEntity = me.Entity.extend({
                 this.body.vel.x=0;
                 this.pos.x = this.pos.x +1;
             }
+            else if(ydif && this.facing==='right'){
+                this.body.vel.y=0;
+                this.pos.y = this.pos.y +1;
+            }
         }
     }
     
@@ -163,3 +167,27 @@ game.EnemyBaseEntity = me.Entity.extend({
        
    }
 });
+game.EnemyCreep = me.Entity.extend({
+      init: function(x,y,settings){
+          this._super(me.Entity, 'init' , [x, y, {
+                image:"creep1",
+                width: 64,
+                height: 64,
+                spritewidth:"64",
+                spriteheight:"64",
+                getShape:function(){
+                    return(new me.Rect(0, 0, 64, 64)).toPolygon();
+                }
+                  
+          }]);
+          this.health=10;
+          this.alwaysUpdate = true;
+          this.setVelocity (3,23);
+          this.type ="EnemyCreep";
+          this.renderable.addAnimation("walk", [3,4,5], 80);
+          this.renderable.setCurrentAnimation("walk");
+      },
+      update: function(){
+          
+      }
+  });
