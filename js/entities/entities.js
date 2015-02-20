@@ -105,7 +105,7 @@ game.PlayerBaseEntity = me.Entity.extend({
         this.alwaysUpdate = true;
         this.body.onCollision = this.onCollision.bind(this);
 
-        this.type = "PlayerBaseEntity";
+        this.type = "PlayerBase";
 
         this.renderable.addAnimation("idle", [0]);
         this.renderable.addAnimation("broken", [1]);
@@ -120,6 +120,9 @@ game.PlayerBaseEntity = me.Entity.extend({
 
         this._super(me.Entity, "update", [delta]);
         return true;
+    },
+    loseHealth:function (damage){
+      this.health = this.health - damage;  
     },
     onCollision: function() {
 
@@ -182,6 +185,9 @@ game.EnemyCreep = me.Entity.extend({
         this.health = 10;
         this.now = new Date().getTime;
         this.alwaysUpdate = true;
+        this.lastAttacking=false;
+        this.lastAttacking = new Date().getTime();
+        this.lastHit = new Date().getTime();
         this.body.setVelocity(3, 23);
         this.type = "EnemyCreep";
         this.renderable.addAnimation("walk", [3, 4, 5], 80);
@@ -200,7 +206,11 @@ game.EnemyCreep = me.Entity.extend({
             this.attacking=true;
             this.lastAttacking=this.now;
             this.body.vel.x=0;
-            this
+            this.pos.x = this.pos.x +1;
+            if((this.now-this.lastHit >= 1000)){
+                this.lastHit = this.now;
+                response.b.loseHealth(1);
+            }
         }
     }
 });
