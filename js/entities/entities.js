@@ -50,7 +50,7 @@ game.PlayerEntity = me.Entity.extend({
             this.body.vel.x = 0;
         }
         if (me.input.isKeyPressed("jump") && !this.jumping && !this.falling) {
-            this.jumping = true;
+            this.body.jumping = true;
             this.body.vel.y -= this.body.accel.y * me.timer.tick;
         }
 
@@ -255,7 +255,7 @@ game.EnemyCreep = me.Entity.extend({
                 this.lastHit = this.now;
                 response.b.loseHealth(game.data.enemyCreepAttack);
             }
-        }else if(response.b.type==='PlayerEntity'){
+        }else if(response.b.type==='PlayerEntity' || 'lecreep'){
             var xdif = this.pos.x - response.b.pos.x;
             this.attacking=true;
             this.lastAttacking=this.now;
@@ -284,15 +284,15 @@ game.FriendCreep = me.Entity.extend({
                 }
 
             }]);
-        this.health = game.data.enemyCreepHealth;
+        this.health = game.data.friendcreepHealth;
         this.now = new Date().getTime;
         this.alwaysUpdate = true;
         this.lastAttacking=false;
         this.lastAttacking = new Date().getTime();
         this.lastHit = new Date().getTime();
-        this.body.setVelocity(3, 23);
+        this.body.setVelocity(2, 23);
         this.type = "lecreep";
-        this.renderable.addAnimation("walk", [0, 1, 2,3,4], 10);
+        this.renderable.addAnimation("walk", [0, 1, 2,3,4], 80);
         this.renderable.setCurrentAnimation("walk");
     },
     loseHealth: function (damage){
@@ -312,7 +312,7 @@ game.FriendCreep = me.Entity.extend({
         return true;
     },
     collideHandler: function(response){
-        if(response.b.type === 'EnemyBase'){
+        if(response.b.type === 'EnemyBaseEntity'){
             this.attacking=true;
             this.lastAttacking=this.now;
             this.body.vel.x=0;
