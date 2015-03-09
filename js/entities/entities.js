@@ -2,7 +2,7 @@
 game.PlayerEntity = me.Entity.extend({
     init: function(x, y, settings) {
         //sets the players height width and uses the spritesheet set up to player
-        this.setSuper;
+        this.setSuper(x,y);
         this.setPlayerTimers();
         this.setAttributes();
         this.setFlags();
@@ -12,7 +12,7 @@ game.PlayerEntity = me.Entity.extend({
         this.addAnimation();
         this.renderable.setCurrentAnimation("idle");
     },
-    setSuper: function(){
+    setSuper: function(x,y){
         this._super(me.Entity, 'init', [x, y, {
                 image: "player",
                 width: 64,
@@ -48,7 +48,7 @@ game.PlayerEntity = me.Entity.extend({
     },
     update: function(delta) {
         this.now = new Date().getTime;
-        this.dead = checkIfDead();
+        this.dead = this.checkIfDead();
         this.checkKeyPressesAndMove();
         this.setAnimation();
         me.collision.check(this, true, this.collideHandler.bind(this), true);
@@ -150,11 +150,8 @@ game.PlayerEntity = me.Entity.extend({
                 var ydif = this.pos.y - response.b.pos.y;
                 this.stopMovement(xdif);
                 if(this.checkAttack(xdif,ydif)){
-                    if (response.b.health <= game.data.playerAttack){
-                      game.data.gold +=1;
-                      console.log("Current gold:" + game.data.gold);
-                    }
-                    response.b.loseHealth(game.data.playerAttack);
+                    this.hitCreep(response);
+                    
                 
                 };
     },
@@ -180,6 +177,13 @@ game.PlayerEntity = me.Entity.extend({
                     return true;
                 }
                 return false;
+        },
+        hitCreep:function(response){
+            if (response.b.health <= game.data.playerAttack){
+                      game.data.gold +=1;
+                      console.log("Current gold:" + game.data.gold);
+                    }
+                    response.b.loseHealth(game.data.playerAttack);
         }
 
 });

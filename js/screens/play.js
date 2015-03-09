@@ -7,8 +7,10 @@ game.PlayScreen = me.ScreenObject.extend({
 		game.data.score = 0;
                 me.levelDirector.loadLevel("level01");
                 this.resetPlayer(0,420);
-                var gamemanager = me.pool.pull("GameManager",0,0,{});
-                me.game.world.addChild(gamemanager,0);
+                var gameTimerManager = me.pool.pull("GameTimerManager",0,0,{});
+                me.game.world.addChild(gameTimerManager,0);
+                var heroDeathManager = me.pool.pull("HeroDeathManager",0,0,{});
+                me.game.world.addChild(heroDeathManager,0);
                 me.input.bindKey(me.input.KEY.SPACE, "jump");
                 me.input.bindKey(me.input.KEY.LEFT, "left");
                 me.input.bindKey(me.input.KEY.RIGHT, "right");

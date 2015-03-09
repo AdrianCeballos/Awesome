@@ -1,6 +1,6 @@
 
 
-game.GameManager = Object.extend({
+game.GameTimerManager = Object.extend({
     init: function(x, y, settings) {
         this.now = new Date().getTime();
         this.lastCreep = new Date().getTime();
@@ -9,20 +9,35 @@ game.GameManager = Object.extend({
     },
     update: function() {
         this.now = new Date().getTime();
-        if (game.data.player.dead){
+        this.goldTimerCheck();
+        this.creepTimerCheck();
+        
+        
+    }
+});
+game.HeroDeathManager = Object.extend({
+   init:function(x,y,settings){
+       this.alwaysUpdate = true;
+   },
+   update:function(){
+       if (game.data.player.dead){
             me.game.world.removeChild(game.data.player);
             me.state.current().resetPlayer(10,0);
         }
-        if (Math.round(this.now / 1000) % 20 === 0 && (this.now - this.lastCreep >= 1000)) {
+   },
+   goldTimerCheck:function(){
+       if (Math.round(this.now / 1000) % 20 === 0 && (this.now - this.lastCreep >= 1000)) {
             game.data.gold+=1;
             console.log("Current gold:" + game.data.gold );
         }
-        if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {
+   },
+   creepTimerCheck:function(){
+       if (Math.round(this.now / 1000) % 10 === 0 && (this.now - this.lastCreep >= 1000)) {
             this.lastCreep = this.now;
             var creepe = me.pool.pull("EnemyCreep", 1000, 0, {});
             me.game.world.addChild(creepe, 5);
             var lecreepe = me.pool.pull("FriendCreep",100,0,{});
             me.game.world.addChild(lecreepe,5);
         }
-    }
+   }
 });
