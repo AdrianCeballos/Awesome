@@ -48,12 +48,19 @@ game.ExperienceManager = Object.extend({
     },
     update: function(){
         if (game.data.win===true){
-            game.data.exp += 10;
-            this.gameOver = true;
-        }else if (game.data.win===false){
-            game.data.exp +=1;
-            this.gameOver = true;
+            this.gameOver(true);
+        }else if (game.data.win===false && !this.gameOver){
+           this.gameOver(false);
         }
         return true;
+    },
+    gameOver:function(){
+        if (win){
+            game.data.exp +=10;
+        }else{
+          game.data.exp +=1;   
+        }
+        this.gameOver = true;
+        me.save.exp = game.data.exp;
     }
 });
