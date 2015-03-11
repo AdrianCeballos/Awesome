@@ -13,18 +13,7 @@ game.GameTimerManager = Object.extend({
         this.creepTimerCheck();
         
         
-    }
-});
-game.HeroDeathManager = Object.extend({
-   init:function(x,y,settings){
-       this.alwaysUpdate = true;
-   },
-   update:function(){
-       if (game.data.player.dead){
-            me.game.world.removeChild(game.data.player);
-            me.state.current().resetPlayer(10,0);
-        }
-   },
+    },
    goldTimerCheck:function(){
        if (Math.round(this.now / 1000) % 20 === 0 && (this.now - this.lastCreep >= 1000)) {
             game.data.gold+=1;
@@ -38,6 +27,17 @@ game.HeroDeathManager = Object.extend({
             me.game.world.addChild(creepe, 5);
             var lecreepe = me.pool.pull("FriendCreep",100,0,{});
             me.game.world.addChild(lecreepe,5);
+        }
+   }
+});
+game.HeroDeathManager = Object.extend({
+   init:function(x,y,settings){
+       this.alwaysUpdate = true;
+   },
+   update:function(){
+       if (game.data.player.dead){
+            me.game.world.removeChild(game.data.player);
+            me.state.current().resetPlayer(10,0);
         }
    }
 });

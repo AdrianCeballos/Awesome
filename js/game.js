@@ -65,7 +65,7 @@ var game = {
                 me.pool.register("EnemyCreep", game.EnemyCreep, true);
                 me.pool.register("PlayerBase", game.PlayerBaseEntity);
                 me.pool.register("EnemyBase", game.EnemyBaseEntity);
-                me.pool.register("GameTimerManager", game.GameManager);
+                me.pool.register("GameTimerManager", game.GameTimerManager);
                 me.pool.register("HeroDeathManager", game.HeroDeathManager);
                 me.pool.register("FriendCreep", game.FriendCreep);
                 me.pool.register("ExperienceManager", game.ExperienceManager);
