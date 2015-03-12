@@ -44,8 +44,10 @@ var game = {
 			me.plugin.register.defer(this, debugPanel, "debug");
 		});
 	}
+        
         me.save.add({exp:0, exp1: 0, exp2: 0, exp3: 0, exp4: 0});
-	// Initialize the audio.
+	me.state.SPENDEXP = 112;
+            // Initialize the audio.
 	me.audio.init("mp3,ogg");
 
 	// Set a callback to run when loading is complete.
@@ -70,6 +72,7 @@ var game = {
                 me.pool.register("FriendCreep", game.FriendCreep);
                 me.pool.register("ExperienceManager", game.ExperienceManager);
                 me.state.set(me.state.MENU, new game.TitleScreen());
+                me.state.set(me.state.SPENDEXP, new game.SpendExp());
 		me.state.set(me.state.PLAY, new game.PlayScreen());
 
 		// Start the game.
