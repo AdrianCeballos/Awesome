@@ -1,39 +1,3 @@
-
-game.HeroDeathManager = Object.extend({
-   init:function(x,y,settings){
-       this.alwaysUpdate = true;
-   },
-   update:function(){
-       if (game.data.player.dead){
-            me.game.world.removeChild(game.data.player);
-            me.state.current().resetPlayer(10,0);
-        }
-   }
-});
-game.ExperienceManager = Object.extend({
-    init:function (x,y,settings){
-      this.alwaysUpdate = true;  
-      this.gameover = false;
-    },
-    update: function(){
-        if (game.data.win===true){
-            this.gameOver(true);
-        }else if (game.data.win===false && !this.gameover){
-           this.gameOver(false);
-        }
-        return true;
-    },
-    gameOver:function(){
-        if (win){
-            game.data.exp +=10;
-        }else{
-          game.data.exp +=1;   
-        }
-        this.gameover = true;
-        me.save.exp = game.data.exp;
-        console.log("exp:" + me.save.exp);
-    }
-});
 game.SpendGold= Object.extend({
    init:function(x,y,settings){
        this.now = new Date().getTime();
